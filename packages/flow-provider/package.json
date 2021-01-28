@@ -1,0 +1,47 @@
+{
+  "name": "@workerhive/flow-provider",
+  "version": "1.2.22",
+  "main": "dist/index.js",
+  "repository": "git@github.com:WorkerHive/flow-provider.git",
+  "author": "Ross Leitch <professional.balbatross@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "start:dev": "npm run build:dev",
+    "build": "ncc build ./src/index.ts -o dist/",
+    "build:dev": "nodemon 'index.js' --exec 'ts-node' index.js -e ts,graphql"
+  },
+  "dependencies": {
+    "@graphql-tools/merge": "^6.2.6",
+    "@graphql-tools/schema": "^7.1.2",
+    "@types/mongodb": "^3.6.3",
+    "camel-case": "^4.1.2",
+    "file-extension": "^4.0.5",
+    "graphql-compose": "^7.23.0",
+    "graphql-type-json": "^0.3.2",
+    "lodash": "^4.17.20"
+  },
+  "resolutions": {
+    "graphql": "15.3.0"
+  },
+  "peerDependencies": {
+    "@workerhive/graph": "^1.0.38",
+    "graphql": "^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.5.0",
+    "@vercel/ncc": "^0.26.1",
+    "@workerhive/graph": "^1.0.38",
+    "mongodb": "^3.6.3",
+    "mssql": "^6.3.0",
+    "nodemon": "^2.0.6",
+    "ts-loader": "^8.0.13",
+    "ts-node": "^9.1.1",
+    "typedoc": "^0.20.12",
+    "typescript": "^4.1.3",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  }
+}
