@@ -1,9 +1,9 @@
 import React from 'react';
 
 import moment from 'moment';
-import Board from '@lourenci/react-kanban'
 import { TeamCircles } from '../..';
 
+const Board = require('@lourenci/react-kanban')
 //import '@lourenci/react-kanban/dist/styles.css'
 
 export interface GraphKanbanProps{
@@ -52,7 +52,7 @@ export const GraphKanban : React.FC<GraphKanbanProps> = ({
     ])
 
     const getColumns = () => {
-        let template = []
+        let template : any = []
         if(template){
             template = template || [];
         }
@@ -95,7 +95,7 @@ return {
 
     return (
         <Board
-            renderCard={(card) => {
+            renderCard={(card : any) => {
                 return (
                     <div onClick={() => {
                         if(onClick){
@@ -117,7 +117,7 @@ return {
                     </div>
                 )
             }}
-            onCardDragEnd={(card, source, destination) => {
+            onCardDragEnd={(card : any, source : any, destination : any) => {
                 console.log(source, destination)
                 let cols = columns.slice()
 
@@ -132,7 +132,7 @@ return {
                 if(onChange) onChange({value: cols})
                 setColumns(cols)
             }}
-            onColumnDragEnd={(_obj : any, source, destination) => {
+            onColumnDragEnd={(_obj : any, source : any, destination : any) => {
                 let cols = columns.slice()
 
                 let spliced = cols.splice(source.fromPosition, 1)[0]

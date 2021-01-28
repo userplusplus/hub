@@ -25,7 +25,7 @@ export interface MoreMenuProps {
 export const MoreMenu : React.FC<MoreMenuProps> = (props) => {
     const [ menuOpen, openMenu ] = React.useState<any>();
 
-    const toggleMenu = (e) => {
+    const toggleMenu = (e : any) => {
         e.preventDefault()
         e.stopPropagation()
         openMenu(e.currentTarget)

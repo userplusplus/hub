@@ -9,7 +9,7 @@ import {
 import { StyledFileDrop as FileDrop } from '../file-drop';
 import { MutableDialog } from '../mutable-dialog'
 
-import uuid from 'uuid'
+import { v4 } from 'uuid'
 import styled from 'styled-components'
 
 import { Typography } from '@material-ui/core'
@@ -65,7 +65,7 @@ export const WorkhubFileBrowser: React.FC<FileBrowserProps> = (props) => {
     }
   }, [props.files, props.loading])
 
-  const onFileAction = (action) => {
+  const onFileAction = (action: any) => {
     let files = action.state.selectedFiles;
     switch (action.id) {
       case "create_folder":
@@ -145,7 +145,7 @@ export const WorkhubFileBrowser: React.FC<FileBrowserProps> = (props) => {
         structure={{ name: 'String' }}
         onSave={({item}: any) => {
           setFolders(folders.concat([{
-            id: uuid.v4(),
+            id: v4(),
             filename: item.name,
             isDir: true
           }])
@@ -173,8 +173,8 @@ export const WorkhubFileBrowser: React.FC<FileBrowserProps> = (props) => {
         <FileToolbar />
 
         <FileContextMenu />
-        <FileDrop noClick onDrop={props.onFileUpload} >
-          {isDragActive => {
+        <FileDrop noClick onDrop={props.onFileUpload!} >
+          {(isDragActive : boolean) => {
             return [
               <FileList />,
               isDragActive && (

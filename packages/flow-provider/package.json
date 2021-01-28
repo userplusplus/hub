@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "start:dev": "npm run build:dev",
-    "build": "ncc build ./src/index.ts -o dist/",
+    "build": "tsc",
     "build:dev": "nodemon 'index.js' --exec 'ts-node' index.js -e ts,graphql"
   },
   "dependencies": {

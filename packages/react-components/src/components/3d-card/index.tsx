@@ -9,9 +9,9 @@ export interface GLBCardProps {
 }
 
 export const GLBCard : React.FC<GLBCardProps> = (props) => {
-  let canvas;
-  let scene;
-  let engine;
+  let canvas : HTMLCanvasElement;
+  let scene : Scene | null;
+  let engine : Engine;
 
 
   React.useEffect(() => {
@@ -51,7 +51,7 @@ export const GLBCard : React.FC<GLBCardProps> = (props) => {
       camera.attachControl(canvas, false);
       window.addEventListener("resize", onResizeWindow);
       engine.runRenderLoop(function () {
-        scene.render();
+        scene!.render();
       });
 
 
@@ -69,7 +69,7 @@ export const GLBCard : React.FC<GLBCardProps> = (props) => {
     }
   }, [props.data])
 
-  const onCanvasLoad = (c) => {
+  const onCanvasLoad = (c : any) => {
     if (c !== null) {
       canvas = c;
     }

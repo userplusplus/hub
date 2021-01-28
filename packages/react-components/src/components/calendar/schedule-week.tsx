@@ -3,7 +3,7 @@ import { Navigate } from 'react-big-calendar'
 import moment from 'moment';
 import TimeGrid from './TimeGrid';
 
-export const ScheduleEvent = (props) => {
+export const ScheduleEvent = (props : any) => {
   return (
     <div style={{paddingTop: 4}}>
       {props.event.title}
@@ -28,7 +28,7 @@ export interface ScheduleWeekProps {
 class ScheduleWeek extends React.Component<ScheduleWeekProps, {}> {
   static title: (date: any) => string;
 
-  range(date) : Date[] {
+  range(date : any) : Date[] {
     let start = moment(date).startOf('week');
     let end = moment(start).add(1, 'week')
 
@@ -42,11 +42,11 @@ class ScheduleWeek extends React.Component<ScheduleWeekProps, {}> {
     return range;
   }
 
-  static navigate(date, action){
+  static navigate(date : any, action : any){
     switch(action){
-      case Navigate.PREVIOUS:
+      case 'PREV':
         return new Date(moment(date).add(-1, 'week').valueOf())
-      case Navigate.NEXT:
+      case 'NEXT':
         return new Date(moment(date).add(1, 'week').valueOf())
       default:
         return date;

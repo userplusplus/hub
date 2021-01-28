@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
@@ -11,13 +12,14 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "noImplicitThis": true,
+    "noImplicitAny": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["babylonjs", "babylonjs-loaders"]
+    "types": ["node", "babylonjs", "babylonjs-loaders"]
   },
   "include": ["src/components"],
   "exclude": ["node_modules", "dist", "example", "src/stories"]

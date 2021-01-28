@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Calendar as BigCalendar, momentLocalizer} from 'react-big-calendar';
+import {Calendar as BigCalendar, momentLocalizer, stringOrDate} from 'react-big-calendar';
 
 import styled from 'styled-components'
 import moment, { Moment } from 'moment'
@@ -30,9 +30,9 @@ export interface CalendarProps{
   viewDate?: Date
   defaultView?: string
   onSelectSlot?: (slotInfo: {
-    start: Date,
-    end: Date,
-    slots: Array<Date>,
+    start: stringOrDate,
+    end: stringOrDate,
+    slots: Array<Date | string>,
     action: "select" | "click" | "doubleClick"
   }) => void
   onSelectEvent?: (event: object, syntheticEvent?: any) => void
@@ -56,13 +56,11 @@ export const WorkhubCalendar : React.FC<CalendarProps> = ({
         views={{
           month: true,
           week: true,
-          schedule_week: ScheduleWeek
+          work_week: ScheduleWeek
         }}
         onSelectEvent={onSelectEvent}
         onDoubleClickEvent={onDoubleClickEvent}
         onSelectSlot={onSelectSlot}
-        messages={{schedule_week: "Schedule"}}
-        defaultView={defaultView}
         selectable={true}
         defaultDate={viewDate}
         localizer={localizer}

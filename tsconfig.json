@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./packages",
+        "paths": {
+            "@workerhive/ipfs": ["fs-layer/src"],
+            "@workerhive/graph": ["graph-server/src"],
+            "@workerhive/flow-provider": ["flow-provider/src"],
+            "@workerhive/react-ui": ["react-components/src"],
+            "@workerhive/*": ["*/src"],
+        }
+    }
+}

@@ -61,8 +61,8 @@ export const MutableDialog: React.FC<MutableDialogProps> = (props) => {
     if (props.onSave) props.onSave({item: data})
   }
 
-  const onChange = (key, value) => {
-    let d = Object.assign({}, data)
+  const onChange = (key : string, value : any) => {
+    let d : any = Object.assign({}, data)
     d[key] = value;
     setData(d)
 

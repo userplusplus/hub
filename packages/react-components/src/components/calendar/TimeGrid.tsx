@@ -4,15 +4,22 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import memoize from 'memoize-one'
 
-import * as dates from 'react-big-calendar/lib/utils/dates'
-import DayColumn from 'react-big-calendar/lib/DayColumn'
-import TimeGutter from 'react-big-calendar/lib/TimeGutter'
+//import * as dates from 'react-big-calendar/lib/utils/dates'
+//import { DayColumn } from 'react-big-calendar/lib'
+//import DayColumn from 'react-big-calendar/lib/DayColumn'
+//import TimeGutter from 'react-big-calendar/lib/TimeGutter'
 
 import getWidth from 'dom-helpers/width'
-import TimeGridHeader from 'react-big-calendar/lib/TimeGridHeader'
-import { notify } from 'react-big-calendar/lib/utils/helpers'
-import { inRange, sortEvents } from 'react-big-calendar/lib/utils/eventLevels'
-import Resources from 'react-big-calendar/lib/utils/Resources'
+//import TimeGridHeader from 'react-big-calendar/lib/TimeGridHeader'
+const { notify } = require('react-big-calendar/lib/utils/helpers')
+const { inRange, sortEvents } = require('react-big-calendar/lib/utils/eventLevels')
+const Resources = require('react-big-calendar/lib/utils/Resources')
+
+const DayColumn = require('react-big-calendar/lib/DayColumn')
+const TimeGutter = require('react-big-calendar/lib/TimeGutter')
+const TimeGridHeader = require('react-big-calendar/lib/TimeGridHeader')
+
+const dates = require('react-big-calendar/lib/utils/dates')
 
 export interface TimeGridProps {
   showTimes: boolean;
@@ -69,15 +76,15 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
   private scrollRef = React.createRef<any>();
   private contentRef = React.createRef<any>();
   private _scrollRatio : number | null;
-  private _updatingOverflow: boolean
+ // private _updatingOverflow: boolean
 
   measureGutterAnimationFrameRequest: any
-  rafHandle: number
+  //rafHandle: number
   gutter: any
-  slots: number
+  //slots: number
   private _selectTimer: number | undefined
 
-  constructor(props) {
+  constructor(props : any) {
     super(props)
 
     this.state = { gutterWidth: undefined, isOverflowing: null }
@@ -92,7 +99,7 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
   }
 
   componentDidMount() {
-    this.checkOverflow()
+ //   this.checkOverflow()
 
     if (this.props.showTimes && this.props.width == null) {
       this.measureGutter()
@@ -100,24 +107,24 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
 
     this.applyScroll()
 
-    window.addEventListener('resize', this.handleResize)
+ //   window.addEventListener('resize', this.handleResize)
   }
 
-  handleScroll = e => {
+  handleScroll = (e : any) => {
     if (this.scrollRef.current) {
       this.scrollRef.current.scrollLeft = e.target.scrollLeft
     }
   }
 
-  handleResize = () => {
+ /* handleResize = () => {
     animationFrame.cancel(this.rafHandle)
     this.rafHandle = animationFrame.request(this.checkOverflow)
-  }
+  }*/
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize)
+  /*  window.removeEventListener('resize', this.handleResize)
 
-    animationFrame.cancel(this.rafHandle)
+    animationFrame.cancel(this.rafHandle) */
 
     if (this.measureGutterAnimationFrameRequest) {
       window.cancelAnimationFrame(this.measureGutterAnimationFrameRequest)
@@ -133,7 +140,7 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
     //this.checkOverflow()
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps : any) {
     const { range, scrollToTime } = this.props
     // When paginating, reset scroll
     if (
@@ -144,17 +151,17 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
     }
   }
 
-  gutterRef = ref => {
+  gutterRef = (ref:any) => {
     this.gutter = ref && findDOMNode(ref)
   }
 
-  handleSelectAlldayEvent = (...args) => {
+  handleSelectAlldayEvent = (...args : any) => {
     //cancel any pending selections so only the event click goes through.
     this.clearSelection()
     notify(this.props.onSelectEvent, args)
   }
 
-  handleSelectAllDaySlot = (slots, slotInfo) => {
+  handleSelectAllDaySlot = (slots : any, slotInfo : any) => {
     const { onSelectSlot } = this.props
     notify(onSelectSlot, {
       slots,
@@ -165,7 +172,7 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
     })
   }
 
-  renderEvents(range, events, now) {
+  renderEvents(range : any, events : any, now : any) {
     let {
       min,
       max,
@@ -178,9 +185,9 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
     const resources = this.memoizedResources(this.props.resources, accessors)
     const groupedEvents = resources.groupEvents(events)
 
-    return resources.map(([id, resource], i) =>
-      range.map((date, jj) => {
-        let daysEvents = (groupedEvents.get(id) || []).filter(event =>
+    return resources.map(([id, resource] : any, i : any) =>
+      range.map((date : any, jj : any) => {
+        let daysEvents = (groupedEvents.get(id) || []).filter((event: any) =>
           dates.inRange(
             date,
             accessors.start(event),
@@ -233,7 +240,7 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
     let start = range![0],
       end = range![range!.length - 1]
 
-    this.slots = range!.length
+   // this.slots = range!.length
 
     let allDayEvents : Array<any> = [],
       rangeEvents : Array<any> = []
@@ -351,7 +358,7 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
     this._scrollRatio = diffMillis / totalMillis
   }
 
-  checkOverflow = () => {
+ /*checkOverflow = () => {
     if(this.props.showTimes){
       if (this._updatingOverflow) return
 
@@ -365,7 +372,7 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
         })
       }
     }
-  }
+  }*/
 
   memoizedResources = memoize((resources, accessors) =>
     Resources(resources, accessors)
