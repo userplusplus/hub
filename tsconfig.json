@@ -2,6 +2,7 @@
     "compilerOptions": {
         "baseUrl": "./packages",
         "paths": {
+            "typescript": ["node_modules/typescript"],
             "@workerhive/ipfs": ["fs-layer/src"],
             "@workerhive/graph": ["graph-server/src"],
             "@workerhive/flow-provider": ["flow-provider/src"],
