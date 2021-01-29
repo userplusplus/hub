@@ -5,12 +5,20 @@
   ],
   "command": {
     "publish": {
-      "ignoreChanges": ["server/**", "web-ui/**", "*.md"],
+      "ignoreChanges": [
+        "server/**",
+        "web-ui/**",
+        "*.md"
+      ],
       "message": "chore(release): Publish"
     },
     "changed": {
-      "ignoreChanges": ["server/*", "web-ui/*", "*.md"]
+      "ignoreChanges": [
+        "server/*",
+        "web-ui/*",
+        "*.md"
+      ]
     }
   },
-  "version": "2.0.0"
+  "version": "2.0.1-alpha.0"
 }
