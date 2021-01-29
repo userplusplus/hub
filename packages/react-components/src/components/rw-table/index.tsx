@@ -11,14 +11,14 @@ import {
 
 export interface RWTableProps {
   onChange?: (args: {value: object}) => void;
-  value: {};
+  value: any;
   items: Array<any>;
 }
 
 export const RWTable : React.FC<RWTableProps> = (props) => {
 
     const change = (ix : number, key : string, value : any) => {
-        let _value = props.value;
+        let _value : any = props.value;
         let val = _value[props.items[ix].name] || {};
         val[key] = value;
         _value[props.items[ix].name] = val;

@@ -13,7 +13,7 @@ const localizer = momentLocalizer(moment)
 export enum CALENDAR_VIEWS {
   WORK_WEEK = 'work_week',
   WEEK = 'week',
-  SCHEDULE = 'schedule_week'
+  SCHEDULE = 'work_week'
 }
 
 export interface CalendarEvent{
@@ -28,7 +28,7 @@ export interface CalendarProps{
   className?: string;
   events?: Array<CalendarEvent>
   viewDate?: Date
-  defaultView?: string
+  defaultView?: "month" | "week" | "work_week" | "day" | "agenda" | undefined
   onSelectSlot?: (slotInfo: {
     start: stringOrDate,
     end: stringOrDate,
@@ -63,10 +63,11 @@ export const WorkhubCalendar : React.FC<CalendarProps> = ({
         onSelectSlot={onSelectSlot}
         selectable={true}
         defaultDate={viewDate}
+        defaultView={defaultView}
         localizer={localizer}
         events={events}
-        startAccessor="start"
-        endAccessor="end"
+        startAccessor={(event: any) => event.start}
+        endAccessor={(event : any) => event.end}
          />
     </Paper>
   )

@@ -8,6 +8,9 @@ export const CALENDAR_VIEW =  {
         path: '/dashboard/calendar',
         label: "Calendar",
         data: {
+            projects: {
+                type: '[Project]'
+            },
             scheduleItems: {
                 type: '[Schedule]',
                 live: false
@@ -55,14 +58,18 @@ export const CALENDAR_VIEW =  {
                                     delete item.id;
                                     client!.actions.updateSchedule(id, {
                                         start: item.start,
+                                        project: item.project,
                                         end: item.end,
-                                        title: item.title
+                                        people: item.people,
+                                        resources: item.resources
                                     }).then(() => {
                                         openModal(false)
                                     })
                                 }else{
+                                    console.log(item)
                                     const newItem : any = {
                                         start: item.start,
+                                        project: item.project,
                                         end: item.end,
                                         people: item.people,
                                         resources: item.resources

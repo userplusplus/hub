@@ -5,14 +5,14 @@ import styled from 'styled-components'
 
 export interface ShortcutLink {
   label?: string;
-  icon?: string;
+  icon?: any;
   path?: string;
-  maxItems?: number;
 }
 
 export interface ShortcutLinksProps {
   className?: string;
   links: Array<ShortcutLink>;
+  maxItems?: number;
 }
 
 export function ShortcutLinks(props: ShortcutLinksProps){

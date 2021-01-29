@@ -1,6 +1,6 @@
 import sql from 'mssql';
 import SQLAdapter from '../adapters/mssql';
-import BaseStore from './base.js';
+import BaseStore from './base';
 import async from 'async';
 
 export default class MSSQLStore extends BaseStore {

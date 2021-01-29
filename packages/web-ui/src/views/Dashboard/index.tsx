@@ -32,7 +32,6 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
     const [ hub, store, isReady, err ] = useHub()
     console.log(hub && Object.keys(hub!.actions).length)
     return (
-        <MuiPickersUtilsProvider utils={MomentUtils}>
         <div className="dashboard-view">
             <Sidebar />
             {hub != null && isReady ?(
@@ -51,7 +50,5 @@ export const Dashboard: React.FC<DashboardProps> = (props) => {
             ) : <Fallback reason={`Client ${isReady} ${hub}`} />}
 
         </div>        
-        </MuiPickersUtilsProvider>
-
     )
 }

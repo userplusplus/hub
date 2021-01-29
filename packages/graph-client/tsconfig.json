@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */
@@ -51,5 +52,5 @@
     /* Advanced Options */
   },
   "include": ["src"],
-  "exclude": ["example", "node_modules/", "tsconfig.json"]
+  "exclude": ["example/", "node_modules/", "tsconfig.json"]
 }

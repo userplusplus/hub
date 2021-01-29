@@ -17,7 +17,7 @@ import { Typography } from '@material-ui/core'
 import { ConvertFiles } from './convert-action';
 
 export interface FileBrowserProps {
-  className: string;
+  className?: string;
   loading?: boolean;
   files: Array<any>;
   title?: string;

@@ -32,8 +32,8 @@ export interface PermissionFormProps {
 export const PermissionForm : React.FC<PermissionFormProps> = (props) => {
     const [dialogOpen, openDialog] = React.useState(false)
 
-    const [ changes, setChanges ] = React.useState({})
-    const [ dataObj, setDataObj ] = React.useState({})
+    const [ changes, setChanges ] = React.useState<any>({})
+    const [ dataObj, setDataObj ] = React.useState<any>({})
 
     const permissions = props.permissions && props.permissions[0] || {}
     const type = props.type && props.type[0] || {}
@@ -44,7 +44,7 @@ export const PermissionForm : React.FC<PermissionFormProps> = (props) => {
         }
     }, [props.selected])
 
-    const renderFields = (type) => {
+    const renderFields = (type: any) => {
         let fields : Array<any> = [];
 
         for(var k in type.typeDef){

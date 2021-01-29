@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar } from '@material-ui/core';
 import styled from 'styled-components'
 
-function hashCode(str) { // java String#hashCode
+function hashCode(str: string) { // java String#hashCode
     var hash = 0;
     for (var i = 0; i < str.length; i++) {
        hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -10,7 +10,7 @@ function hashCode(str) { // java String#hashCode
     return hash;
 }
 
-function intToRGB(i){
+function intToRGB(i: number){
     var c = (i & 0x00FFFFFF)
         .toString(16)
         .toUpperCase();
@@ -31,7 +31,7 @@ export const TeamCircles : React.FC<TeamCirclesProps> = ({
         <div className={className}>
             {members.map((mbr) => {
                 const member = mbr
-                if(member) return <Avatar style={{backgroundColor: '#'+ intToRGB(hashCode(member.name))}}>{member.name.split(' ').map((x) => x.substring(0, 1))}</Avatar>
+                if(member) return <Avatar style={{backgroundColor: '#'+ intToRGB(hashCode(member.name))}}>{member.name.split(' ').map((x: string) => x.substring(0, 1))}</Avatar>
             })}
         </div>
     )

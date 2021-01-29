@@ -63,7 +63,7 @@ export const CONTACT_VIEW = {
                                     }}
                                     onClose={() => modalOpen(false)}
                                      open={open} />
-                                <SearchTable renderItem={({item}: {item: any}) => (
+                                <SearchTable renderItem={({item}: any) => (
                                     <div style={{display: 'flex', flex: 1, alignItems: 'center'}}>
                                         <Typography style={{flex: 1}}>{item.name}</Typography>
                                         <MoreMenu menu={[

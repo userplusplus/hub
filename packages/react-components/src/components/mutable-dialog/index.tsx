@@ -31,6 +31,7 @@ import {
 */
 import { CRUDKV } from '../crud-kv'
 import { RWTable } from '../rw-table'
+import moment from 'moment'
 
 export interface MutableDialogProps {
   data?: Record<string, any> | any
@@ -44,7 +45,7 @@ export interface MutableDialogProps {
 }
 
 export const MutableDialog: React.FC<MutableDialogProps> = (props) => {
-  const [data, setData] = React.useState({})
+  const [data, setData] = React.useState<any>({})
 
   React.useEffect(() => {
     if (props.data && props.data != data) {
@@ -87,7 +88,11 @@ export const MutableDialog: React.FC<MutableDialogProps> = (props) => {
         type.key = 'id',
         type.items = model.data;
         type.multi = true;
-        if(data[key]) data[key][type.key] = Array.isArray(data[key]) ? data[key].map((x: any) => x[type.key]) : data[key][type.key]
+        if(data[key]) {
+          let keyData : any = {};
+          keyData[type.key] = Array.isArray(data[key]) ? data[key].map((x: any) => x[type.key]) : data[key][type.key]
+          data[key] = keyData;
+        }
         typeName = 'Select'
       }
     }
@@ -113,9 +118,7 @@ export const MutableDialog: React.FC<MutableDialogProps> = (props) => {
               multiple={type.multi}
               value={data[key] ? data[key][type.key] : (type.multi) ? [] : ''}
               onChange={(event : any) => {
-                console.log("Ch ch ch changes")
-
-                onChange(key, {[type.key]: event.target.value})
+                 onChange(key, {[type.key]: event.target.value})
               }}
               label={uppercase(key)}
             >
@@ -182,7 +185,7 @@ export const MutableDialog: React.FC<MutableDialogProps> = (props) => {
             margin="dense"
             label={uppercase(key)}
             format={"DD/MM/YYYY"}
-            value={data[key] || new Date()}
+            value={moment(data[key]) || new Date()}
             onChange={(e) => {
               onChange(key, e)
             }} />

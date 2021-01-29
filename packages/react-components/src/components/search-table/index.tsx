@@ -23,7 +23,7 @@ import styled from 'styled-components'
 export interface SearchTableProps{
   className?: string;
   data?: Array<object>;
-  renderItem?: (args: {item: object}) => React.Component;
+  renderItem?: (args: {item: object}) => any;
   filter?: (args: {item: object, filterText: string}) => boolean;
 }
 

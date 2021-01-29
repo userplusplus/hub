@@ -149,7 +149,7 @@ export default class MergedAdapter extends BaseAdapter {
             */
 
             return Promise.all(actions.map((x) => x(query))).then((result) => {
-                let r = result;
+                let r : Array<any> = result;
 
                 if(supporting.length > 0){
                 return Promise.all(supporting.map((action) => action(query))).then((results) => {

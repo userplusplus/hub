@@ -16,6 +16,40 @@ export function transform(composer: SchemaComposer<any>) : GraphQLSchema {
     
     let types = getTypesWithDirective(composer, directiveName)
 
+    const addRealtionships = (item: any) => {
+        const otc = schemaComposer.getOTC(item.name);
+        const refs = item.def.filter((a) => a.directives.filter((x) => x.name == 'input' && x.args.ref).length > 0)
+
+        refs.forEach((foreignKey) => {
+            console.log("Add foreign resolver for ", item.name, foreignKey)
+            otc.addFields({
+                [foreignKey.name]: {
+                    type: foreignKey.type.toString(),
+                    resolve: async (parent, args, context : GraphContext, info) => {
+                        let arr = foreignKey.type.toString().match(/\[(.*?)\]/) != null;
+                        let name = arr ? foreignKey.type.toString().match(/\[(.*?)\]/)[1] : foreignKey.type.toString();
+                        
+                        let query = {};
+                        
+                        if(parent[foreignKey.name]){
+                            let queryK = Object.keys(parent[foreignKey.name])
+                            queryK.forEach(k => {
+                                query[k] = arr ? {$in: parent[foreignKey.name][k]} : parent[foreignKey.name][k]
+                            })
+                        }else {
+                            query = null;
+                        }
+
+                        console.log(query)
+
+                        return await (arr) ? (query != null) ? context.connector.readAll(name, query) : [] : (query != null) ? context.connector.read(name, query) : {}
+                    }
+                }
+            })
+                              
+        })
+    }
+
     types.map((item) => {
     
             let args = {
@@ -28,6 +62,8 @@ export function transform(composer: SchemaComposer<any>) : GraphQLSchema {
             
             let queryKey = `${item.camelName}`
             let queryAllKey = `${item.camelName}s`
+
+            addRealtionships(item)
 
             schemaComposer.Mutation.addFields({
                 [addKey]:{
@@ -46,6 +82,7 @@ export function transform(composer: SchemaComposer<any>) : GraphQLSchema {
                         ...args,
                     },
                     resolve: async (parent, args, context : GraphContext) => {
+                        console.log("Update", item.name, args)
                         return await context.connector.update(item.name, {id: args['id']}, args[item.camelName])
                     }
                 },
@@ -76,36 +113,19 @@ export function transform(composer: SchemaComposer<any>) : GraphQLSchema {
                         
                     },
                     resolve: async (parent, args, context : GraphContext) => {
-                        const refs = item.def.filter((a) => a.directives.filter((x) => x.name == 'input' && x.args.ref).length > 0)
-                        console.log("Foreign fields", refs)
+                       // const refs = item.def.filter((a) => a.directives.filter((x) => x.name == 'input' && x.args.ref).length > 0)
+                       //console.log("Foreign fields", refs)
                         let result = await context.connector.readAll(item.name)
 
-                        return await Promise.all(result.map(async (x: any) => {
+                        return result;
+                        /*return await Promise.all(result.map(async (x: any) => {
                             if(refs.length > 0){
                                 //We have foreign references to check for
-                                await Promise.all(refs.map(async (ref: any) => {
-                                    let arr = ref.type.toString().match(/\[(.*?)\]/) != null; 
-                                    let name = arr ? ref.type.toString().match(/\[(.*?)\]/)[1] : ref.type.toString();
-                                    if(x[ref.name]){
-                                        console.log("Object has foreign references")
-                                        let keys = Object.keys(x[ref.name])
-                                        let q = {}
-                                        console.log(keys, x, ref)
-                                        keys.forEach(k => {
-                                            q[k] = {$in: x[ref.name][k]}
-                                        })
-                                    
-                                        let part = await context.connector.readAll(name, q)
-                                        console.log("REFFFFF", part, q)
-                                        x[ref.name] = part;
-                                    }else{
-                                        x[ref.name] = arr ? [] : {}
-                                    }
-                                }))
+                                
                         
                             }
                             return x;
-                        }))
+                        }))*/
                     }
                 }
             })

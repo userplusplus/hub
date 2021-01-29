@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import * as animationFrame from 'dom-helpers/animationFrame'
+//import * as animationFrame from 'dom-helpers/animationFrame'
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import memoize from 'memoize-one'
@@ -8,12 +8,11 @@ import memoize from 'memoize-one'
 //import { DayColumn } from 'react-big-calendar/lib'
 //import DayColumn from 'react-big-calendar/lib/DayColumn'
 //import TimeGutter from 'react-big-calendar/lib/TimeGutter'
-
 import getWidth from 'dom-helpers/width'
 //import TimeGridHeader from 'react-big-calendar/lib/TimeGridHeader'
 const { notify } = require('react-big-calendar/lib/utils/helpers')
 const { inRange, sortEvents } = require('react-big-calendar/lib/utils/eventLevels')
-const Resources = require('react-big-calendar/lib/utils/Resources')
+const Resources = require('react-big-calendar/lib/utils/Resources').default
 
 const DayColumn = require('react-big-calendar/lib/DayColumn')
 const TimeGutter = require('react-big-calendar/lib/TimeGutter')
@@ -272,15 +271,16 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
           resources && 'rbc-time-view-resources'
         )}
       >
+        {/*resources={this.memoizedResources(resources, accessors)} */}
         <TimeGridHeader
           range={range}
           events={allDayEvents}
           width={width}
           rtl={rtl}
+          resources={this.memoizedResources(resources, accessors)}
           getNow={getNow}
           localizer={localizer}
           selected={selected}
-          resources={this.memoizedResources(resources, accessors)}
           selectable={this.props.selectable}
           accessors={accessors}
           getters={getters}
@@ -374,7 +374,10 @@ export default class TimeGrid extends Component<TimeGridProps, {gutterWidth: any
     }
   }*/
 
-  memoizedResources = memoize((resources, accessors) =>
-    Resources(resources, accessors)
-  )
+  memoizedResources = memoize((resources, accessors)=>{
+    console.log(Resources)
+       return Resources(resources, accessors)
+
+  })
+
 }

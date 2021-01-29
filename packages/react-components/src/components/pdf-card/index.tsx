@@ -10,7 +10,7 @@ export const PDFCard : React.FC<PDFCardProps> = (props) => {
 
     const [ numPages, setNumPages ] = React.useState(null)
 
-    const onDocumentLoad = ({numPages}) => {
+    const onDocumentLoad = ({numPages}: any) => {
         setNumPages(numPages)
     }
 

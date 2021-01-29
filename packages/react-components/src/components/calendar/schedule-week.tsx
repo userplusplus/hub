@@ -1,14 +1,19 @@
 import React from 'react';
-import { Navigate } from 'react-big-calendar'
 import moment from 'moment';
 import TimeGrid from './TimeGrid';
 
 export const ScheduleEvent = (props : any) => {
+  console.log("Event", props.event)
   return (
-    <div style={{paddingTop: 4}}>
+    <div style={{paddingTop: 4, display: 'flex', flexDirection: 'column'}}>
       {props.event.title}
-      <div>
-        Details
+      <div style={{display: 'flex', textAlign: 'center', flexDirection: 'column'}}>
+        {props.event.people.map((x: any) => (
+          <div>{x.name}</div>
+         ))}
+        {props.event.resources.map((x: any) => (
+          <div>{x.name}</div>
+        ))}
       </div>
     </div>
   )
