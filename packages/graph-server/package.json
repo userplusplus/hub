@@ -9,6 +9,7 @@
   "scripts": {
     "build": "tsc",
     "build:docs": "typedoc src/index.ts --out docs/",
+    "prepublish": "yarn build && yarn build:docs",
     "example": "ts-node example",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

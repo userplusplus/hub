@@ -10,7 +10,8 @@
   "author": "Ross Leitch <professional.balbatross@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "ipfs": "^0.52.3",

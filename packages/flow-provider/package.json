@@ -11,7 +11,8 @@
   "scripts": {
     "start:dev": "npm run build:dev",
     "build": "tsc",
-    "build:dev": "nodemon 'index.js' --exec 'ts-node' index.js -e ts,graphql"
+    "build:dev": "nodemon 'index.js' --exec 'ts-node' index.js -e ts,graphql",
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "@graphql-tools/merge": "^6.2.6",

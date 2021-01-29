@@ -16,6 +16,7 @@
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build",
+    "prepublish": "yarn build && yarn build:doc",
     "storybook": "start-storybook -s src/stories/assets -p 6006",
     "build-storybook": "build-storybook -o docs-build -s ./src/stories/assets"
   },
