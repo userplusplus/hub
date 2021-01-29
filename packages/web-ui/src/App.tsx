@@ -19,8 +19,6 @@ if(isElectron()){
 function App() {
 
   const [ hubUrl, setHubUrl ] = React.useState<string | null>(isElectron() ? localStorage.getItem('workhub-api') : (process.env.NODE_ENV == "development" ? 'http://localhost:4002' : window.location.origin));
-
-
   return (
         <Router>
           <div className="App">

@@ -28,7 +28,6 @@ export default class TypeRegistry extends EventEmitter<any>{
         this.composer.createScalarTC(HashScalar)
     }
 
-
     setupMutable(){
         this.composer.addTypeDefs(`
             type MutableType{
@@ -37,8 +36,6 @@ export default class TypeRegistry extends EventEmitter<any>{
                 def: JSON
             } 
         `)
-
-
         this.composer.Query.addFields({
             uploadTypes: {
                 type: '[MutableType]',
@@ -112,7 +109,6 @@ export default class TypeRegistry extends EventEmitter<any>{
         });
         return _types;
     }
-
     getScalars(){
         let scalars = [];
         let types = this.composer.types;
