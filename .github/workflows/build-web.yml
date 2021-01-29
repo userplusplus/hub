@@ -27,6 +27,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
+      - run: yarn install
       - run: yarn bootstrap
       - run: echo "NODE_ENV=production" >> $GITHUB_ENV
       - run: echo $NODE_ENV
