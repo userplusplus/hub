@@ -31,6 +31,7 @@ jobs:
       - run: yarn bootstrap
       - run: echo "NODE_ENV=production" >> $GITHUB_ENV
       - run: echo $NODE_ENV
+      - run: yarn build:web-deps
       - run: NODE_OPTIONS="--max_old_space_size=4096" yarn build:web
         env: 
           CI: false

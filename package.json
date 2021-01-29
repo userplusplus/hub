@@ -18,7 +18,9 @@
     "build:web": "cd packages/web-ui && yarn build",
     "start:server": "cd packages/server && yarn start",
     "start:dev-web": "cd packages/web-ui && yarn start",
-    "start:storybook": "cd packages/react-components && yarn storybook"
+    "start:storybook": "cd packages/react-components && yarn storybook",
+    "prepublish": "yarn build:web-deps && yarn build:server-deps",
+    "publish": "lerna publish"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
