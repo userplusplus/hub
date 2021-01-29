@@ -1,6 +1,6 @@
 {
   "name": "react-workerhub",
-  "version": "2.0.1-alpha.0",
+  "version": "2.0.2-alpha.0",
   "private": true,
   "dependencies": {
     "@date-io/moment": "1.x",
@@ -17,7 +17,7 @@
     "@workerhive/client": "^2.0.1-alpha.0",
     "@workerhive/hive-flow": "^1.1.5",
     "@workerhive/ipfs": "^2.0.1-alpha.0",
-    "@workerhive/react-ui": "^2.0.1-alpha.0",
+    "@workerhive/react-ui": "^2.0.2-alpha.0",
     "is-electron": "^2.2.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
