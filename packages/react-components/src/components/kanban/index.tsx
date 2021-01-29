@@ -59,11 +59,6 @@ export const GraphKanban : React.FC<GraphKanbanProps> = ({
     ])
 
     const getColumns = () => {
-        let _template : any = []
-        if(template){
-            _template = template || [];
-        }
-
         const cols = template.map((col : any) => {
             let cards : Array<any> = [];
             if(col.status){
