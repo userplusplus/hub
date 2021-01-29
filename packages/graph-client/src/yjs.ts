@@ -2,6 +2,7 @@ import * as Y from 'yjs';
 import { WebsocketProvider } from 'y-websocket';
 
 import 'websocket-polyfill'
+import { cleanObject } from './utils';
 
 export class RealtimeSync {
     public doc = new Y.Doc();
@@ -43,13 +44,14 @@ export class RealtimeArray {
 
     push(content: any[]){
         content = content.map((x) => {
+            const clean = cleanObject(x, this.model.def)
             console.log("Content", x)
-            if(typeof(x) === 'object'){
+            if(typeof(clean) === 'object'){
                 console.log("Object", x)
-                Object.keys(x).map((key) => {
+                Object.keys(clean).map((key) => {
                     console.log("Object key", x, key)
-                    if(x[key] instanceof Date){
-                        x[key] = x[key].getTime();
+                    if(clean[key] instanceof Date){
+                        clean[key] = clean[key].toString();
                     }
                 })
             }
@@ -60,10 +62,12 @@ export class RealtimeArray {
     }
 
     toArray(){
-        return this.array.toArray().map((x) => {
+        return this.array.toArray().map((obj) => {
+            let x = cleanObject(obj, this.model.def)
+            console.log("Arr obj", x)
             Object.keys(x).map((key) => {
-              console.log(this.model)
-                if(this.model && this.model.defs && this.model.defs.filter((a : any) => a.name == key)[0].type == "Date"){
+              console.log(this.model, key)
+                if(this.model && this.model.def && this.model.def.filter((a : any) => a.name == key)[0].type == "Date"){
                     x[key] = new Date(x[key])
                 }
             })

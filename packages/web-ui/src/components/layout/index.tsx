@@ -68,6 +68,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
                         //Pull name from data object
                         let name = props.schema.data[k].type;
                         console.log("Get Data", name)
+                        const pollLength : number = props.schema.data[k].poll || undefined;
                         const liveData : boolean = props.schema.data[k].live || false;
 
                         if(!name) continue;
@@ -99,6 +100,13 @@ export const Layout: React.FC<LayoutProps> = (props) => {
                                 if (currentValue && currentValue.length > 0) {
                                     console.log("Current value", currentValue)
                                 } else {
+                                    if(pollLength && pollLength > 0){
+                                        console.log("Registering poll length", pollLength, model.name)
+                                        setInterval(async () => {
+                                            console.log("Fetch", model.name)
+                                            await client!.actions[`get${model.name}s`](false);
+                                        }, pollLength)
+                                    }
                                     let result = await client!.actions[`get${model.name}s`]()
 
                                     currentValue = result //store[model.name]
@@ -122,7 +130,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
                                 } else {
                                     let result = await client!.actions[`get${model.name}`](query.id)
                                     currentValue = result
-
+                                    console.log("had to fetch fresh data")
                                 }
                             }
 
@@ -160,8 +168,8 @@ export const Layout: React.FC<LayoutProps> = (props) => {
             if(liveData) console.log("LIVE", client!.realtimeSync!.getArray('calendar', model).toArray())
 
             obj[k] = arr ? 
-                (liveData ? client!.realtimeSync?.getArray('calendar', model).toArray() : (store[name] || []) )
-                : (liveData ? client!.realtimeSync?.getArray('calendar', model).toArray().filter((a : any) => {
+                (liveData ? client!.realtimeSync?.getArray(name, model).toArray() : (store[name] || []) )
+                : (liveData ? client!.realtimeSync?.getArray(name, model).toArray().filter((a : any) => {
                     let match = true;
                     for(var queryK in query){
                         if(a[queryK] != query[queryK]){
@@ -169,7 +177,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
                         }
                     }
                     return match;
-                })[0] : (store[name].filter((a: any) => {
+                })[0] : (store[name] && store[name].filter((a: any) => {
                     let match = true;
                     for(var queryK in query){
                         if(a[queryK] != query[queryK]){

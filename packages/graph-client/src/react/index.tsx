@@ -1,6 +1,6 @@
 import React, { useContext, Context, createContext, useEffect, useReducer } from 'react';
-import { WorkhubClient } from '.';
-import { clientReducer } from './store';
+import { WorkhubClient } from '../';
+import { clientReducer } from '../store';
 
 declare global {
     interface Window {

@@ -13,7 +13,7 @@ export const CALENDAR_VIEW =  {
             },
             scheduleItems: {
                 type: '[Schedule]',
-                live: false
+                poll: 15 * 1000
             },
             people: {
                 type: '[TeamMember]'
@@ -49,41 +49,26 @@ export const CALENDAR_VIEW =  {
 
                         const [ userData, setData ] = React.useState<object>({});
 
-                          return <Paper style={{padding: 4, flex: 1, display: 'flex'}}>
+                          return <>
                         <MutableDialog 
                             open={modalOpen} 
                             onSave={({item} : any) => {
                                 if(item.id){
                                     const id = item.id;
-                                    delete item.id;
-                                    client!.actions.updateSchedule(id, {
-                                        start: item.start,
-                                        project: item.project,
-                                        end: item.end,
-                                        people: item.people,
-                                        resources: item.resources
-                                    }).then(() => {
+                                    client!.actions.updateSchedule(id, item).then(() => {
                                         openModal(false)
                                     })
                                 }else{
-                                    console.log(item)
-                                    const newItem : any = {
-                                        start: item.start,
-                                        project: item.project,
-                                        end: item.end,
-                                        people: item.people,
-                                        resources: item.resources
-                                    }
-                                   // client!.realtimeSync?.getArray('calendar', type['Schedule']).push([newItem])
+
+                                 //  client!.realtimeSync?.getArray('Schedule', type['Schedule']).push([item])
                    
                                     openModal(false)
 
                                     
-                                    client!.actions.addSchedule(newItem).then(() => {
+                                    client!.actions.addSchedule(item).then(() => {
                                         openModal(false)
                                     })
                                 }
-                                console.log("Save calendar", item)
                             }}
                             onClose={() => {
                                 openModal(false);
@@ -110,7 +95,7 @@ export const CALENDAR_VIEW =  {
                             openModal(true)
                             setData(slotInfo)
                         } } />
-                    </Paper>
+                    </>
                     })(data)
                 }
             }

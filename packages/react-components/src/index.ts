@@ -4,7 +4,7 @@ import { RWTable } from './components/rw-table'
 import { CRUDKV } from './components/crud-kv';
 import { CRUDTree } from './components/crud-tree';
 
-import { GraphKanban } from './components/kanban'
+import { StyledKanban as GraphKanban } from './components/kanban'
 
 import { PDFCard } from './components/pdf-card'
 import { StyledCircles as TeamCircles } from './components/team-circles';

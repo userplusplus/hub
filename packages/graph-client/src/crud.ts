@@ -1,9 +1,10 @@
 import gql  from 'graphql-tag';
 import { camelCase } from 'camel-case';
-import { isNativeType, rawType } from './utils';
+import { cleanObject, isNativeType, rawType } from './utils';
 
 export default (models: any, client?: any, dispatch?: any) => {
     let actions: any = {};
+
 
     //Takes a type model and iterates over available keys, if key isn't native getFields will be called again to fill out the query fields
     const getFields = (type : any, parent?: any) => {
@@ -30,6 +31,8 @@ export default (models: any, client?: any, dispatch?: any) => {
 
     const setupAdd = (model : any, fields : any) => {
         actions[`add${model.name}`] = (item: any) => {
+            const newObject = cleanObject(item, model.def);
+
             return client!.mutate({
                 mutation: gql`
                     mutation Add${model.name}($input: ${model.name}Input){
@@ -39,7 +42,7 @@ export default (models: any, client?: any, dispatch?: any) => {
                     }
                 `,
                 variables: {
-                    input: item
+                    input: newObject
                 }
             }).then((r: any) => r.data[`add${model.name}`]).then((data: any) => {
                 dispatch({type: `ADD_${model.name}`, data: data})
@@ -68,6 +71,9 @@ export default (models: any, client?: any, dispatch?: any) => {
 
     const setupUpdate = (model: any, fields: any) => {
          actions[`update${model.name}`] = (id: string, update: any) => {
+            
+            const updateObject = cleanObject(update, model.def)
+
             return client!.mutate({
                 mutation: gql`
             mutation Update${model.name}($id: ID, $update: ${model.name}Input){
@@ -78,7 +84,7 @@ export default (models: any, client?: any, dispatch?: any) => {
             `,
                 variables: {
                     id,
-                    update
+                    update: updateObject
                 }
             }).then((r: any) => r.data[`update${model.name}`]).then((data: any) => {
                 dispatch({type: `UPDATE_${model.name}`, id: id, data: data})
@@ -88,7 +94,7 @@ export default (models: any, client?: any, dispatch?: any) => {
     }
 
     const setupRead = (model: any, fields: any) => {
-        actions[`get${model.name}`] = (id: any) => {
+        actions[`get${model.name}`] = (id: any, cache: boolean = true) => {
             return client!.query({
                 query: gql`
             query Get${model.name}($id: ID){
@@ -99,7 +105,8 @@ export default (models: any, client?: any, dispatch?: any) => {
         `,
                 variables: {
                     id: id
-                }
+                },
+                fetchPolicy: cache ? 'cache' : 'no-cache'
             }).then((r: any) => r.data[`${camelCase(model.name)}`]).then((data: any) => {
                 dispatch({type: `GET_${model.name}`, id: id, data: data})
                 return data;
@@ -108,7 +115,7 @@ export default (models: any, client?: any, dispatch?: any) => {
     }
 
     const setupReadAll = (model: any, fields: any) => {
-        actions[`get${model.name}s`] = () => {
+        actions[`get${model.name}s`] = (cache: boolean = true) => {
             return client!.query({
                 query: gql`
                 query Get${model.name}s {
@@ -116,7 +123,8 @@ export default (models: any, client?: any, dispatch?: any) => {
                         ${fields}
                     }
                 }
-            `
+                `,
+                fetchPolicy: cache ? 'cache': 'no-cache'
             }).then((r: any) => r.data[`${camelCase(model.name)}s`]).then((data : any) => {
                 dispatch({type: `GETS_${model.name}`, data: data})
                 return data;

@@ -1,6 +1,6 @@
-import { Fab, Typography } from "@material-ui/core";
+import { Fab, Paper, Typography } from "@material-ui/core";
 import { Add, Delete, Edit } from "@material-ui/icons";
-import { Header, MoreMenu, MutableDialog, SearchTable } from "@workerhive/react-ui";
+import { GraphKanban, Header, MoreMenu, MutableDialog, SearchTable } from "@workerhive/react-ui";
 import React from "react";
 
 export const PROJECT_DRILLDOWN = {
@@ -30,11 +30,20 @@ export const PROJECT_DRILLDOWN = {
             x: 0,
             y: 1,
             w: 12, 
-            h: sizes.height / rowHeight,
+            h: sizes.height / rowHeight - 1,
             component: (data: any, params: any) => {
-                return <div>
-                    {JSON.stringify(data.project)}
-                </div>
+                return (
+                    <Paper style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
+                        <GraphKanban 
+                            template={[
+                                {id: 0, title: 'Backlog', status: 'to-do'},
+                                {id: 1, title: 'In Progress', status: 'in-progress'},
+                                {id: 2, title: 'Review', status: 'review'},
+                                {id: 3, title: 'Done', status: 'done'}
+                            ]}
+                            graph={{nodes: [], links: []}} />
+                    </Paper>
+                )
             }
         }
     ]

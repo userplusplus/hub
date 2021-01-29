@@ -6,12 +6,12 @@ export const ScheduleEvent = (props : any) => {
   console.log("Event", props.event)
   return (
     <div style={{paddingTop: 4, display: 'flex', flexDirection: 'column'}}>
-      {props.event.title}
+      {props.event.project && props.event.project.name}
       <div style={{display: 'flex', textAlign: 'center', flexDirection: 'column'}}>
-        {props.event.people.map((x: any) => (
+        {Array.isArray(props.event.people) && props.event.people.map((x: any) => (
           <div>{x.name}</div>
          ))}
-        {props.event.resources.map((x: any) => (
+        {Array.isArray(props.event.resources) && props.event.resources.map((x: any) => (
           <div>{x.name}</div>
         ))}
       </div>

@@ -2,24 +2,31 @@ import React from 'react';
 
 import moment from 'moment';
 import { TeamCircles } from '../..';
+import styled from 'styled-components'
+const Board = require('@lourenci/react-kanban').default;
 
-const Board = require('@lourenci/react-kanban')
-//import '@lourenci/react-kanban/dist/styles.css'
+import '@lourenci/react-kanban/dist/styles.css'
 
 export interface GraphKanbanProps{
+    className?: string;
   graph: {nodes: Array<any>, links: Array<any>};
   template?: Array<any>;
   selfish?: boolean;
   onClick?: (args: {item: object}) => void;
   onStatusChange?: (args: {card: object, status: string}) => void;
   onChange?: (args: {value: Array<any>}) => void;
+  allowAddColumn?: boolean;
+  allowAddCard?: boolean;
   user?: {id: string};
 }
 
 export const GraphKanban : React.FC<GraphKanbanProps> = ({
   graph = {nodes: [], links: []},
   template = [],
+  className,
   selfish = false,
+  allowAddColumn = false,
+  allowAddCard = true,
   onClick,
   onStatusChange,
   onChange,
@@ -52,12 +59,12 @@ export const GraphKanban : React.FC<GraphKanbanProps> = ({
     ])
 
     const getColumns = () => {
-        let template : any = []
+        let _template : any = []
         if(template){
-            template = template || [];
+            _template = template || [];
         }
 
-        return template.map((col : any) => {
+        const cols = template.map((col : any) => {
             let cards : Array<any> = [];
             if(col.status){
                 cards = graph.nodes.filter((a) => {
@@ -90,11 +97,16 @@ return {
                 })
             }
         })
+        console.log(cols);
+        return cols;
     }
 
 
     return (
+        <div className={className}>
         <Board
+            allowAddColumn={allowAddColumn}
+            allowAddCard={allowAddCard}
             renderCard={(card : any) => {
                 return (
                     <div onClick={() => {
@@ -141,5 +153,21 @@ return {
                 //setColumns(cols)
             }}
             children={{columns: getColumns()}} />
+        </div>
     )
 }
+
+
+export const StyledKanban = styled(GraphKanban)`
+    flex: 1;
+    display: flex;
+
+    .react-kanban-board{
+        flex: 1;
+        flex-direction: column;
+    }
+
+    .react-kanban-board div{
+        flex: 1;
+    }
+`
