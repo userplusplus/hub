@@ -58,7 +58,7 @@ export default class MSSQLStore extends BaseStore {
             }], (err, data) => {
                 console.log(err, data);
                 if(err) return reject(err);
-                return resolve(data.map((x) => x.recordset).reduce((a, b) => a.concat(b)))
+                return resolve(data.map((x: any) => x.recordset).reduce((a, b) => a.concat(b)))
             })
         })
         
