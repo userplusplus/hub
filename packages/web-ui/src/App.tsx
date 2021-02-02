@@ -5,6 +5,9 @@ import { WorkhubClient } from '@workerhive/client'
 import { WorkhubProvider } from '@workerhive/client/dist/react'
 import {Login} from './views/Login';
 
+//homescreen test
+import {Homescreen} from './views/Homescreen';
+
 import './App.css';
 import { Dashboard } from './views/Dashboard';
 
@@ -22,6 +25,7 @@ function App() {
   return (
         <Router>
           <div className="App">
+            <Route path="/homescreen" component={Homescreen} />
             <Route path="/login" component={Login} />
             <Route path="/dashboard" render={(props) => {
               if(localStorage.getItem('token') && localStorage.getItem('token')!.length > 0){
