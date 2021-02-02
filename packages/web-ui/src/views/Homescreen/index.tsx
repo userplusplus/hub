@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 
 import './index.css';
 
+//https://josephsurin.github.io/tiled-hexagons/
+//https://www.npmjs.com/package/tiled-hexagons
+//https://www.npmjs.com/package/react-live-clock
+//https://www.npmjs.com/package/rc-notification
+
 export const Homescreen = () => {
     return (
         <>
