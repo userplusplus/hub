@@ -1,95 +1,91 @@
 import React, { Component } from 'react';
 
+
 import './index.css';
+const tiledHexagons = require('tiled-hexagons')
+const { Hexagon, TiledHexagons } = tiledHexagons;
+
+//https://josephsurin.github.io/tiled-hexagons/ [check, need to make an invisigon]
+//https://www.npmjs.com/package/tiled-hexagons
+//https://www.npmjs.com/package/react-live-clock
+//https://www.npmjs.com/package/rc-notification
+
 
 export const Homescreen = () => {
     return (
         <>
             <div id="bg-container">
-                <div id="triangle-topleft"></div>
-                <div id="triangle-botright"></div>
+                <canvas id="bg-canvas"></canvas>
 
                 <div id="core-wrapper">
                     <div id="core-notifications"></div>
+
                     <div id="core-buttons">
-
-                        <div id="hex-wrap-bump-top">
-                            <ul id="hexGrid">
-                                <li className="hex">
-                                    <div className="hexIn">
-                                        <a className="hexLink" href="#">
-                                            <img src="https://farm9.staticflickr.com/8461/8048823381_0fbc2d8efb.jpg" alt="" />
-                                            <h1>This is a title</h1>
-                                            <p>Some sample text about the article this hexagon leads to</p>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li className="hex">
-                                    <div className="hexIn">
-                                        <a className="hexLink" href="#">
-                                            <img src="https://farm9.staticflickr.com/8461/8048823381_0fbc2d8efb.jpg" alt="" />
-                                            <h1>This is a title</h1>
-                                            <p>Some sample text about the article this hexagon leads to</p>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <ul id="hexGrid">
-                            <li className="hex">
-                                <div className="hexIn">
-                                    <a className="hexLink" href="#">
-                                        <img src="https://farm9.staticflickr.com/8461/8048823381_0fbc2d8efb.jpg" alt="" />
-                                        <h1>This is a title</h1>
-                                        <p>Some sample text about the article this hexagon leads to</p>
-                                    </a>
-                                </div>
-                            </li>
-                            <li className="hex">
-                                <div className="hexIn">
-                                    <a className="hexLink" href="#">
-                                        <img src="https://farm9.staticflickr.com/8461/8048823381_0fbc2d8efb.jpg" alt="" />
-                                        <h1>This hex should be blank</h1>
-                                        <p>Some sample text about the article this hexagon leads to</p>
-                                    </a>
-                                </div>
-                            </li>
-                            <li className="hex">
-                                <div className="hexIn">
-                                    <a className="hexLink" href="#">
-                                        <img src="https://farm9.staticflickr.com/8461/8048823381_0fbc2d8efb.jpg" alt="" />
-                                        <h1>This is a title</h1>
-                                        <p>Some sample text about the article this hexagon leads to</p>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-
-                        <div id="hex-wrap-bump-bottom">
-                            <ul id="hexGrid">
-                                <li className="hex">
-                                    <div className="hexIn">
-                                        <a className="hexLink" href="#">
-                                            <img src="https://farm9.staticflickr.com/8461/8048823381_0fbc2d8efb.jpg" alt="" />
-                                            <h1>This is a title</h1>
-                                            <p>Some sample text about the article this hexagon leads to</p>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li className="hex">
-                                    <div className="hexIn">
-                                        <a className="hexLink" href="#">
-                                            <img src="https://farm9.staticflickr.com/8461/8048823381_0fbc2d8efb.jpg" alt="" />
-                                            <h1>This is a title</h1>
-                                            <p>Some sample text about the article this hexagon leads to</p>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
+                        <TiledHexagons
+                            tileSideLengths={60}
+                            tileGap={7}
+                            tileBorderRadii={2}
+                            maxHorizontal={4}
+                            tileTextStyles={{
+                                fontFamily: 'Source Sans Pro',
+                                fontSize: '68px',
+                                fill: '#7cebff'
+                            }}
+                            tiles={[
+                                {
+                                    text: 'あ',
+                                    textStyle: {
+                                        fontFamily: 'M1Plus'
+                                    },
+                                    hidden:true
+                                },{
+                                    text: 'あ',
+                                    textStyle: {
+                                        fontFamily: 'M1Plus'
+                                    }
+                                },{
+                                    text: 'あ',
+                                    textStyle: {
+                                        fontFamily: 'M1Plus'
+                                    }
+                                },{
+                                    text: 'あ',
+                                    textStyle: {
+                                        fontFamily: 'M1Plus'
+                                    },
+                                    hidden:true
+                                },{
+                                    text: 'あ',
+                                    textStyle: {
+                                        fontFamily: 'M1Plus'
+                                    }
+                                },
+                                {
+                                    text: 'B',
+                                    textStyle: {
+                                        fill: 'white'
+                                    },
+                                    fill: '#7cebff',
+                                    shadow: '#64c5d6'
+                                },
+                                { img: 'assets/react.svg' },
+                                {
+                                    text: 'angry',
+                                    textStyle: {
+                                        fontFamily: 'Font Awesome Solid'
+                                    }
+                                },
+                                {
+                                    text: 'E',
+                                    onClick: () => console.log('clicked!')
+                                },
+                                { text: '😼' },
+                                { text: 'G' }
+                            ]}
+                        />
                     </div>
+
+
                     <div id="core-clock"></div>
                 </div>
             </div>
