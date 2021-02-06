@@ -11,6 +11,11 @@ const { Hexagon, TiledHexagons } = tiledHexagons;
 //https://www.npmjs.com/package/rc-notification
 
 
+//https://josephsurin.github.io/tiled-hexagons/
+//https://www.npmjs.com/package/tiled-hexagons
+//https://www.npmjs.com/package/react-live-clock
+//https://www.npmjs.com/package/rc-notification
+
 export const Homescreen = () => {
     return (
         <>
